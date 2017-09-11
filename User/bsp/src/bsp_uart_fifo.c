@@ -303,7 +303,7 @@ void UART3_SetBaud(uint32_t _baud)
 /*
 *********************************************************************************************************
 *   函 数 名: Uart3_SendBefore
-*   功能说明: 发送数据前的准备工作。对于RS485通信，请设置RS485芯片为发送状态，
+*   功能说明: 发送数据前的准备工作。
 *             并修改 UART_InitSoftVar()中的函数指针等于本函数名，比如 g_tUart2.SendBefore = Uart3_SendBefore
 *   形    参: 无
 *   返 回 值: 无
@@ -311,13 +311,13 @@ void UART3_SetBaud(uint32_t _baud)
 */
 void Uart3_SendBefore(void)
 {
-//  RS485_TX_EN();  /* 切换RS485收发芯片为发送模式 */
+
 }
 
 /*
 *********************************************************************************************************
 *   函 数 名: Uart3_SendOver
-*   功能说明: 发送一串数据结束后的善后处理。对于RS485通信，请设置RS485芯片为接收状态，
+*   功能说明: 发送一串数据结束后的善后处理。
 *             并修改 UART_InitSoftVar()中的函数指针等于本函数名，比如 g_tUart2.SendOver = Uart3_SendOver
 *   形    参: 无
 *   返 回 值: 无
@@ -325,7 +325,7 @@ void Uart3_SendBefore(void)
 */
 void Uart3_SendOver(void)
 {
-//  RS485_RX_EN();  /* 切换RS485收发芯片为接收模式 */
+
 }
 
 
@@ -620,16 +620,6 @@ static void UART_InitHardPara(void)
 
 	/************* PB10和PB11   Uart3***********************************************/
 #if UART3_FIFO_EN == 1          /* 串口3 TX = PB10   RX = PB11 */
-
-	/* 配置 PB2为推挽输出，用于切换 RS485芯片的收发状态，本项目没有用到RS485，只是单独的串口3使用，因此屏蔽掉 */
-//  {
-//      RCC_APB2PeriphClockCmd(RCC_RS485_TXEN, ENABLE);
-
-//      GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//      GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//      GPIO_InitStructure.GPIO_Pin = PIN_RS485_TXEN;
-//      GPIO_Init(PORT_RS485_TXEN, &GPIO_InitStructure);
-//  }
 
 	/* 第1步： 开启GPIO和UART时钟 */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, ENABLE);

@@ -62,32 +62,32 @@ typedef enum
 /* 定义串口波特率和FIFO缓冲区大小，分为发送缓冲区和接收缓冲区, 支持全双工 */
 #if UART1_FIFO_EN == 1
 #define UART1_BAUD          115200
-#define UART1_TX_BUF_SIZE   1*1024
-#define UART1_RX_BUF_SIZE   1*1024
+#define UART1_TX_BUF_SIZE   1*64
+#define UART1_RX_BUF_SIZE   1*64
 #endif
 
 #if UART2_FIFO_EN == 1
 #define UART2_BAUD          115200
-#define UART2_TX_BUF_SIZE   1*1024
-#define UART2_RX_BUF_SIZE   1*1024
+#define UART2_TX_BUF_SIZE   1*64
+#define UART2_RX_BUF_SIZE   1*64
 #endif
 
 #if UART3_FIFO_EN == 1
 #define UART3_BAUD          115200
-#define UART3_TX_BUF_SIZE   1*1024
-#define UART3_RX_BUF_SIZE   1*1024
+#define UART3_TX_BUF_SIZE   1*64
+#define UART3_RX_BUF_SIZE   1*64
 #endif
 
 #if UART4_FIFO_EN == 1
 #define UART4_BAUD          115200
-#define UART4_TX_BUF_SIZE   1*1024
-#define UART4_RX_BUF_SIZE   1*1024
+#define UART4_TX_BUF_SIZE   1*64
+#define UART4_RX_BUF_SIZE   1*64
 #endif
 
 #if UART5_FIFO_EN == 1
 #define UART5_BAUD          115200
-#define UART5_TX_BUF_SIZE   1*1024
-#define UART5_RX_BUF_SIZE   1*1024
+#define UART5_TX_BUF_SIZE   1*64
+#define UART5_RX_BUF_SIZE   1*64
 #endif
 
 /* 串口设备结构体 */

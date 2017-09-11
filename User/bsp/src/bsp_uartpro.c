@@ -3,9 +3,9 @@
 uint8_t g_uart1_timeout = 0;  //检测串口1接收数据超时的全局变量
 uint8_t g_uart2_timeout = 0;  //检测串口2接收数据超时的全局变量
 uint8_t g_uart3_timeout = 0;  //检测串口3接收数据超时的全局变量
-RECVDATA_T g_tUart1;  //初始化从串口1，BLE接收数据结构体
-RECVDATA_T g_tUart2;  //初始化从串口2接收数据结构体
-RECVDATA_T g_tUart3;  //初始化从串口3接收数据结构体
+RECVDATA_T p_tUart1;  //初始化从串口1，BLE接收数据结构体
+RECVDATA_T p_tUart2;  //初始化从串口2接收数据结构体
+RECVDATA_T p_tUart3;  //初始化从串口3接收数据结构体
 /*********************************************************************************************************
 *   函 数 名: Uart1_RxTimeOut
 *   功能说明: 超过3.5个字符时间后执行本函数。 设置全局变量 g_uart1_timeout = 1; 通知主程序开始解码。
@@ -56,9 +56,9 @@ void Uart1Callback_ReciveNew(uint8_t _byte)
     //超时3ms没有数据，即为一个数据包结束
     bsp_StartHardTimer(1, timeout, (void *)Uart1_RxTimeOut);
 
-    if (g_tUart1.RxCount < S_RX_BUF_SIZE)
+    if (p_tUart1.RxCount < S_RX_BUF_SIZE)
     {
-        g_tUart1.RxBuf[g_tUart1.RxCount++] = _byte;
+        p_tUart1.RxBuf[p_tUart1.RxCount++] = _byte;
     }
 }
 
@@ -90,9 +90,9 @@ void Uart2Callback_ReciveNew(uint8_t _byte)
 //  硬件定时中断，定时精度us，使用定时器2用于检测接收超时
     bsp_StartHardTimer(2, timeout, (void *)Uart2_RxTimeOut);
 
-    if (g_tUart2.RxCount < S_RX_BUF_SIZE)
+    if (p_tUart2.RxCount < S_RX_BUF_SIZE)
     {
-        g_tUart2.RxBuf[g_tUart2.RxCount++] = _byte;
+        p_tUart2.RxBuf[p_tUart2.RxCount++] = _byte;
     }
 }
 
@@ -118,14 +118,17 @@ void Uart3Callback_ReciveNew(uint8_t _byte)
 
     g_uart3_timeout = 0; 
 
-    timeout = 35000000 / 115200;            /* 计算超时时间，单位us 35000000*/
+//    timeout = 35000000 / 115200;            /* 计算超时时间，单位us 35000000*/
 
 //  printf("%x\t",_byte);
 //  硬件定时中断，定时精度us，使用定时器2用于检测接收超时
+    timeout = 3000;//1秒钟100次回传，间隔10ms，数据包时间为33字节*8位/115200=2.3ms
+    //超时3ms没有数据，即为一个数据包结束    
+    
     bsp_StartHardTimer(3, timeout, (void *)Uart3_RxTimeOut);
 
-    if (g_tUart3.RxCount < S_RX_BUF_SIZE)
+    if (p_tUart3.RxCount < S_RX_BUF_SIZE)
     {
-        g_tUart3.RxBuf[g_tUart3.RxCount++] = _byte;
+        p_tUart3.RxBuf[p_tUart3.RxCount++] = _byte;
     }
 }

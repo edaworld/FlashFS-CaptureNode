@@ -427,11 +427,6 @@
               <FilePath>..\..\User\includes.h</FilePath>
             </File>
             <File>
-              <FileName>demo_sd_flashfs.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\app\demo_sd_flashfs.c</FilePath>
-            </File>
-            <File>
               <FileName>Retarget.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\Retarget.c</FilePath>

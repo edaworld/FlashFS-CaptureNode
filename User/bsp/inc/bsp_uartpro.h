@@ -9,10 +9,10 @@
 
 typedef struct
 {
-	uint8_t RxBuf[S_RX_BUF_SIZE];
+    uint8_t RxBuf[S_RX_BUF_SIZE];
 	uint8_t RxCount;
-	uint8_t RxStatus;
-	uint8_t RxNewFlag;
+//	uint8_t RxStatus;
+//	uint8_t RxNewFlag;
 
 	uint8_t TxBuf[S_TX_BUF_SIZE];
 	uint8_t TxCount;
