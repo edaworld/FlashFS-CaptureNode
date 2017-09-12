@@ -337,10 +337,10 @@ void Uart3_SendOver(void)
 *   返 回 值: 无
 *********************************************************************************************************
 */
-void RS485_SendBuf(uint8_t *_ucaBuf, uint16_t _usLen)
-{
-	COMx_SendBuf(COM3, _ucaBuf, _usLen);
-}
+//void RS485_SendBuf(uint8_t *_ucaBuf, uint16_t _usLen)
+//{
+//	COMx_SendBuf(COM3, _ucaBuf, _usLen);
+//}
 
 
 /*
@@ -352,10 +352,10 @@ void RS485_SendBuf(uint8_t *_ucaBuf, uint16_t _usLen)
 *   返 回 值: 无
 *********************************************************************************************************
 */
-void RS485_SendStr(char *_pBuf)
-{
-	RS485_SendBuf((uint8_t *)_pBuf, strlen(_pBuf));
-}
+//void RS485_SendStr(char *_pBuf)
+//{
+//	RS485_SendBuf((uint8_t *)_pBuf, strlen(_pBuf));
+//}
 
 /*
 *********************************************************************************************************
@@ -368,7 +368,7 @@ void RS485_SendStr(char *_pBuf)
 
 void Uart1_ReciveNew(uint8_t _byte)
 {
-	Uart1Callback_ReciveNew(_byte);
+//	Uart1Callback_ReciveNew(_byte);
 }
 
 
@@ -384,7 +384,7 @@ void Uart1_ReciveNew(uint8_t _byte)
 
 void Uart2_ReciveNew(uint8_t _byte)
 {
-	Uart2Callback_ReciveNew(_byte);
+//	Uart2Callback_ReciveNew(_byte);
 }
 
 
@@ -399,7 +399,7 @@ void Uart2_ReciveNew(uint8_t _byte)
 
 void Uart3_ReciveNew(uint8_t _byte)
 {
-	Uart3Callback_ReciveNew(_byte);
+//	Uart3Callback_ReciveNew(_byte);
 }
 
 /*
@@ -910,7 +910,8 @@ static uint8_t UartGetChar(UART_T *_pUart, uint8_t *_pByte)
 	if (usCount == 0)   /* 已经没有数据 */
 	{
 		return 0;
-	} else
+	} 
+    else
 	{
 		*_pByte = _pUart->pRxBuf[_pUart->usRxRead];     /* 从串口接收FIFO取1个数据 */
 
