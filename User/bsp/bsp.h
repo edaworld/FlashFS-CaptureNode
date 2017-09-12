@@ -76,7 +76,7 @@
 #include "bsp_rf.h"
 
 #include "bsp_task.h"
-
+#include "bsp_tpc.h"
 
 /* 提供给其他C文件调用的函数 */
 void bsp_Init(void);

@@ -629,6 +629,16 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>OS</GroupName>
+          <Files>
+            <File>
+              <FileName>bsp_tpc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\bsp\bsp_tpc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Doc</GroupName>
           <Files>
             <File>
