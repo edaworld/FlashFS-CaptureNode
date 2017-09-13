@@ -26,7 +26,7 @@ uint8_t isReceiveAllFrame = FALSE;//接收到完整的一帧数据
 
 
 SLVMSG_SD s_tToSDBuffer1[BUFFERSIZE];//存储到sd卡的结构体缓冲1
-//SLVMSG_SD s_tToSDBuffer2[BUFFERSIZE];//存储到sd卡的结构体缓冲2
+SLVMSG_SD s_tToSDBuffer2[BUFFERSIZE];//存储到sd卡的结构体缓冲2
 
 //ACC_U accofReceive;//接收到的加速度数据
 //ANG_U angofReceive;//接收到的角度数据
@@ -94,7 +94,7 @@ TPC_TASK TaskComps[3] =
 int main (void) 
 {		
 
-    isFree = 1;
+    isFree = 1;//启动后闪烁
 	bsp_Init();	
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE); 
 	TaskInit(); //初始化任务,仅是获取任务数量，任务调度在bsp_idle中调用task_process实现
@@ -130,11 +130,11 @@ void Task_RecvfromLora(void)
             {
                 if (!(mountcount--)) 
                 {
-                    isFree = 0;
+                    isFree = 0;//挂载失败熄灭
                     return;
                 }
             }    
-            isFree = 2;
+            isFree = 2;//挂载成功1s闪烁一次
             fout = NULL;
             do
             {
@@ -142,8 +142,7 @@ void Task_RecvfromLora(void)
                 if(inum > 500) return;
                 if(ffind (pch, &info) == 0)//查找是否有filename文件，如有，删除
                 { 
-                    fdelete (pch);
-                    
+                    fdelete (pch);                    
                     fout = fopen (pch, "w"); //打开文件夹test中的文件，如果没有子文件夹和txt文件会自动创建
                     inum ++;
                 }
@@ -152,12 +151,12 @@ void Task_RecvfromLora(void)
                     fout = fopen (pch, "w"); //打开文件夹test中的文件，如果没有子文件夹和txt文件会自动创建
                     if (fout != NULL) 
                     {
-                        isFree = 2;
+                        isFree = 2;//打开文件成功
                         printf("打开文件成功\r\n");
                     }
                     else
                     {
-                        isFree = 0;
+                        isFree = 0;//打开文件失败
                         printf("打开文件失败\r\n");                            
                         return;
                     }
@@ -178,9 +177,8 @@ void Task_RecvfromLora(void)
                     isFree = 0;
                     return;
                 }
-            }    
-            
-            isFree = 1;                    
+            }                
+            isFree = 1; //停止后，指示灯闪烁                   
         }//end of 接收到结束信号
 		isEnterIRQ = FALSE;
 	}
@@ -193,14 +191,14 @@ void Task_WriteToSD(void)
 {
     if(MasterBstisRcv == TRUE)
     {         
-        if (buffer1IsFull == TRUE)
+        if (buffer2IsFull == TRUE)
         {
             fseek (fout, 0L, SEEK_END);                
-            bw = fwrite (s_tToSDBuffer1, sizeof(SLVMSG_SD), sizeof(s_tToSDBuffer1)/sizeof(SLVMSG_SD), fout);
-            memset(s_tToSDBuffer1, 0, sizeof(s_tToSDBuffer1));
+            bw = fwrite (s_tToSDBuffer2, sizeof(SLVMSG_SD), sizeof(s_tToSDBuffer2)/sizeof(SLVMSG_SD), fout);
+            memset(s_tToSDBuffer2, 0, sizeof(s_tToSDBuffer2));
             fseek (fout, 0L, SEEK_END);
             fflush(fout);
-            buffer1IsFull = FALSE;
+            buffer2IsFull = FALSE;
         }
         if(++savetimes == 20)//保存10次以后，close一下，然后再打开，保证能够写入！
         {
@@ -253,7 +251,9 @@ void Task_RecvfromUart(void)
                         if (countofbuf1 == BUFFERSIZE)
                         {
                             countofbuf1 = 0;
-                            buffer1IsFull = TRUE;
+                            buffer2IsFull = TRUE;
+                            memcpy(s_tToSDBuffer2,s_tToSDBuffer1,sizeof(s_tToSDBuffer2));
+                            memset(s_tToSDBuffer1, 0, sizeof(s_tToSDBuffer1));
                         }
                         memset(t_Uartbuf.RxBuf, 0, sizeof(t_Uartbuf.RxBuf));                            
                     }

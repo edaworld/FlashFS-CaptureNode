@@ -75,7 +75,7 @@ typedef enum
 #if UART3_FIFO_EN == 1
 #define UART3_BAUD          230400
 #define UART3_TX_BUF_SIZE   1*16
-#define UART3_RX_BUF_SIZE   1*33*100*6
+#define UART3_RX_BUF_SIZE   1*33*100*5
 #endif
 
 #if UART4_FIFO_EN == 1
