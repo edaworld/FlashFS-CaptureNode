@@ -164,6 +164,7 @@ void SysTick_ISR(void)
 		s_count = 0;
 		bsp_RunPer10ms();	/* 每隔10ms调用一次此函数，此函数在 bsp.c */
 	}
+    TPCRemarks(TaskComps);//处理任务，主要是将各个任务中的定时计数值减去1 
 }
 
 /*

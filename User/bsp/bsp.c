@@ -108,7 +108,7 @@ void bsp_RunPer1ms(void)
 */
 void bsp_Idle(void)
 {
-
+	TPCProcess(TaskComps);//处理任务，定时时间到达的，即得到执行
 }
 
 /***************************** 安富莱电子 www.armfly.com (END OF FILE) *********************************/
