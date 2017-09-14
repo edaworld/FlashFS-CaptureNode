@@ -57,6 +57,8 @@ void bsp_Init(void)
 *********************************************************************************************************
 */
 extern uint8_t isFree;
+
+extern void Task_WriteToSD(void);
 void bsp_RunPer10ms(void)
 {
     static uint32_t s_count1 = 0;
@@ -81,6 +83,7 @@ void bsp_RunPer10ms(void)
             bsp_LedToggle(1);
         }
     }
+    Task_WriteToSD();
 }
 
 /*

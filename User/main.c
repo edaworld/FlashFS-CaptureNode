@@ -82,11 +82,11 @@ static void SetJY901(void)
 //	bsp_DelayMS(50);    
 }
 
-TPC_TASK TaskComps[3] =
+TPC_TASK TaskComps[2] =
 {
 	//添加新任务时，请注意单个任务中改变任务属性的代码
 	{ 0, 0, 10, 1, Task_RecvfromLora }, // 静态任务，处理从SPI接口的NRF接收的数据任务，等待开始的同步信号
-	{ 0, 0, 5, 1, Task_WriteToSD }, // 静态任务，写数据至SD卡
+//	{ 0, 0, 5, 1, Task_WriteToSD }, // 静态任务，写数据至SD卡
 	{ 0, 0, 1, 1, Task_RecvfromUart }, // 静态任务,通过串口从MPU9250接收数据任务
 //	{ 0, 0, 10, 50, Task_LEDDisplay }, // 静态任务，LED闪烁任务，时间片到达即可执行    
 };
@@ -200,12 +200,12 @@ void Task_WriteToSD(void)
             fflush(fout);
             buffer2IsFull = FALSE;
         }
-        if(++savetimes == 20)//保存10次以后，close一下，然后再打开，保证能够写入！
-        {
-            savetimes = 0;
-            fclose(fout);
-            fout = fopen(pch,"a");
-        }        
+//        if(++savetimes == 20)//保存10次以后，close一下，然后再打开，保证能够写入！
+//        {
+//            savetimes = 0;
+//            fclose(fout);
+//            fout = fopen(pch,"a");
+//        }        
     }
 }
 /*********************************************************************************************************

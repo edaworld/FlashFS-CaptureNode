@@ -106,7 +106,7 @@ extern TPC_TASK TaskComps[];
 ********************************************************************************************************/
 static void Task_LEDDisplay(void);  //LED闪烁任务
 static void Task_RecvfromUart(void);  //从串口读取传感器数据
-static void Task_WriteToSD(void); //写数据至SD卡
+void Task_WriteToSD(void); //写数据至SD卡
 static void Task_RecvfromLora(void); //从2.4G（NRF2401）所连接的SPI读取开始信号
 static void Task_ADCProcess(void); //ADC采集串联分压电阻获得电量程序
 static void Task_PowerCtl(void); //控制关机任务
